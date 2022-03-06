@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using ProjectManager.Library.Internal.DataAccess;
 using ProjectManagerUI.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,6 @@ namespace ProjectManagerUI
 
 
         private SimpleContainer _container = new SimpleContainer();
-
         public Bootstrapper()
         {
             Initialize();
@@ -21,9 +21,8 @@ namespace ProjectManagerUI
         protected override void Configure()
         {
             _container.Singleton<IWindowManager, WindowManager>()
-                      .Singleton<IEventAggregator, EventAggregator>();
-
-
+                      .Singleton<IEventAggregator, EventAggregator>()
+                      .PerRequest<ISqlDataAccess, SqlDataAccess>();
 
             GetType().Assembly.GetTypes()
                 .Where(type => type.IsClass)

@@ -69,7 +69,6 @@
     <Build Include="dbo\Tables\Contractor.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PMDatabase.publish.xml" />
     <None Include="dbo\PublishLocations\PMDatabase.publish.xml" />
   </ItemGroup>
 </Project>
