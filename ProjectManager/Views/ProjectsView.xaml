@@ -6,8 +6,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="768" Background="White" d:DesignWidth="1024">
 
-
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -46,13 +44,12 @@
         <DockPanel Grid.Row="2" Grid.ColumnSpan="3" Margin="5 5 5 5">
             <Label Content="Projekt:"></Label>
             <TextBox  Width="240" />
-
         </DockPanel>
 
         <!--Treci red-->
         <DockPanel Grid.Row="3" Grid.ColumnSpan="2" Margin="5 5 5 5">
             <Label Content="Vlasnik:"></Label>
-            <TextBox Width="140" HorizontalAlignment="Right" Text="{Binding Path=SelectedProjectItem.Name}"></TextBox>
+            <TextBox Width="140" HorizontalAlignment="Right" Text="{Binding Path = SelectedProjectItem.Name}"></TextBox>
         </DockPanel>
         <!--Cetvrti red-->
         <DockPanel Grid.Row="4" Grid.ColumnSpan="2" Margin="5 5 5 5">
@@ -65,59 +62,110 @@
             <TextBox Width="140" HorizontalAlignment="Right"></TextBox>
         </DockPanel>
         <!--Sesti red-->
-        <GroupBox Header="Ugovorene vrijednosti" Grid.Row="6" Grid.ColumnSpan="2" Height="120" Margin="5 5 5 5">
+        <GroupBox Header="Ugovorene vrijednosti:" Grid.Row="6" Grid.ColumnSpan="2" Height="120" Margin="5 5 5 5">
             <TextBlock Background="#fffccc"></TextBlock>
         </GroupBox>
 
         <!--Sedmi red-->
-        <GroupBox Header="Biljeske" Grid.Row="7" Grid.ColumnSpan="2" Height="120" Margin="5 5 5 5">
+        <GroupBox Header="Biljeske:" Grid.Row="7" Grid.ColumnSpan="2" Height="120" Margin="5 5 5 5">
             <TextBlock></TextBlock>
         </GroupBox>
 
+        <GroupBox Header="Ugovori:" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="4" Grid.RowSpan="4" Margin="5 5 5 5">
+            <DataGrid ItemsSource="{Binding SelectedProjectItem.Contracts, IsAsync=True}" SelectedItem="{Binding SelectedContractItem}"
+                      MinColumnWidth="120" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column"
+                      EnableRowVirtualization = "True" SelectionMode="Single" CanUserResizeRows="False" VerticalScrollBarVisibility="Auto"
+                      EnableColumnVirtualization = "true" MinRowHeight="40" MaxHeight="200">
 
-        <DataGrid Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="4" Grid.RowSpan="4" Margin="5 5 5 5">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="ProjectId" Binding="{Binding ProjectId}"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Investor" Binding="{Binding Investor}"/>
+                </DataGrid.Columns>
 
-        </DataGrid>
+                <DataGrid.CellStyle>
+                    <Style TargetType="{x:Type DataGridCell}">
+                        <Style.Triggers>
+                            <!-- Highlight selected rows-->
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#ff66ccff" />
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Background" Value="#ff66ccff" />
+                                <Setter Property="BorderBrush" Value="Black" />
+                                <Setter Property="BorderThickness" Value="1"/>
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                        </Style.Triggers>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="FrameworkElement.HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                    <Grid Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.CellStyle>
+
+                <DataGrid.ColumnHeaderStyle>
+
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Height" Value="30"/>
+                        <Setter Property="Background" Value="LightBlue" />
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="FontSize" Value="14" />
+                        <Setter Property="BorderBrush" Value="Black" />
+                        <Setter Property="BorderThickness" Value="0,0,1,0"/>
+                        <Setter Property="FontFamily" Value="Calibri" />
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+
+                <DataGrid.RowStyle>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#ff66ccff" />
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+
+                            <Trigger Property="IsSelected" Value="true" >
+                                <Setter Property="Background" Value="#ff66ccff" />
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+            </DataGrid>
+        </GroupBox>
+
 
         <Border Grid.Row="8" Grid.ColumnSpan="6" Height="35" Background="Aquamarine" Margin="5 5 5 5">
             <TextBlock Text="Projekti" VerticalAlignment="center" HorizontalAlignment="Center" FontSize="28"/>
         </Border>
 
-        <DataGrid x:Name="Projects" Grid.Row="9" Grid.ColumnSpan="6" Margin="5 5 5 5" MinColumnWidth="120" SelectedItem="{Binding SelectedProjectItem}">
-            <DataGrid.Resources>
+        <DataGrid x:Name="Projects" AutoGenerateColumns="False" HeadersVisibility="Column"
+                  IsReadOnly="True" SelectionMode="Single" Grid.Row="9" 
+                  Grid.ColumnSpan="6" MinColumnWidth="120" SelectedItem="{Binding SelectedProjectItem}"
+                  EnableRowVirtualization="True" EnableColumnVirtualization = "true" MinRowHeight="40" Margin="5 5 5 5">
 
-                <Style TargetType="DataGridColumnHeader">
-                    <Setter Property="Height" Value="30"/>
-                    <Setter Property="Background" Value="LightBlue" />
-                    <Setter Property="Foreground" Value="Black"/>
-                    <Setter Property="FontSize" Value="14" />
-                    <Setter Property="BorderBrush" Value="Black" />
-                    <Setter Property="BorderThickness" Value="0,0,1,0"/>
-                    <Setter Property="FontFamily" Value="Calibri" />
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                </Style>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"/>
+            </DataGrid.Columns>
 
-
-                <Style TargetType="DataGridRow">
+            <DataGrid.CellStyle>
+                <Style TargetType="{x:Type DataGridCell}">
                     <Style.Triggers>
-
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#ff66ccff" />
-                            <Setter Property="Foreground" Value="Black" />
-                        </Trigger>
-
-                        <Trigger Property="IsSelected" Value="true" >
-                            <Setter Property="Background" Value="#ff66ccff" />
-                            <Setter Property="Foreground" Value="Black" />
-                        </Trigger>
-
-                    </Style.Triggers>
-                </Style>
-
-                <Style TargetType="DataGridCell">
-
-                    <Style.Triggers>
-                        <!-- Highlight selected rows -->
+                        <!-- Highlight selected rows-->
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Background" Value="#ff66ccff" />
                             <Setter Property="BorderBrush" Value="Transparent" />
@@ -130,16 +178,49 @@
                             <Setter Property="Foreground" Value="Black" />
                         </Trigger>
                     </Style.Triggers>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="FrameworkElement.HorizontalAlignment" Value="Stretch"/>
                     <Setter Property="Template">
                         <Setter.Value>
-                            <ControlTemplate TargetType="DataGridCell">
-                                <ContentPresenter HorizontalAlignment="Center"/>
+                            <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                <Grid Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
                 </Style>
+            </DataGrid.CellStyle>
 
-            </DataGrid.Resources>
+            <DataGrid.ColumnHeaderStyle>
+
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Height" Value="30"/>
+                    <Setter Property="Background" Value="LightBlue" />
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="FontSize" Value="14" />
+                    <Setter Property="BorderBrush" Value="Black" />
+                    <Setter Property="BorderThickness" Value="0,0,1,0"/>
+                    <Setter Property="FontFamily" Value="Calibri" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#ff66ccff" />
+                            <Setter Property="Foreground" Value="Black" />
+                        </Trigger>
+
+                        <Trigger Property="IsSelected" Value="true" >
+                            <Setter Property="Background" Value="#ff66ccff" />
+                            <Setter Property="Foreground" Value="Black" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
 
         </DataGrid>
     </Grid>

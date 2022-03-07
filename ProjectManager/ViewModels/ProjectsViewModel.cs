@@ -2,10 +2,10 @@
 using ProjectManagerUI.Models;
 using System.ComponentModel;
 using System.Windows.Controls;
-
+using System.Collections.Generic;
 namespace ProjectManagerUI.ViewModels
 {
-    public class ProjectsViewModel : Screen, INotifyPropertyChanged
+    public class ProjectsViewModel : Screen
     {
 
         private BindingList<ProjectDisplayModel> _projects;
@@ -49,20 +49,73 @@ namespace ProjectManagerUI.ViewModels
         }
 
 
-        public void SelectionChanged(object e, SelectionChangedEventArgs args)
-        {
+        private BindingList<ContractDisplayModel> _contracts;
 
+        public BindingList<ContractDisplayModel> Contracts
+        {
+            get { return _contracts; }
+            set
+            {
+                _contracts = value;
+                NotifyOfPropertyChange(() => Contracts);
+            }
         }
+
+
+
+        private ContractDisplayModel _selectedContractItem;
+
+        public ContractDisplayModel SelectedContractItem
+        {
+            get { return _selectedContractItem; }
+            set
+            {
+                _selectedContractItem = value;
+                NotifyOfPropertyChange(() => SelectedContractItem);
+            }
+        }
+
+
 
         public ProjectsViewModel()
         {
             Projects = new BindingList<ProjectDisplayModel>
             {
-                new ProjectDisplayModel { Id=1,Name ="Senad",LastName="Topalovic" },
-                new ProjectDisplayModel { Id=2,Name ="Semir",LastName ="Suljevic"},
-                new ProjectDisplayModel { Id=3,Name ="Amar",LastName="Fejzic" }
+                new ProjectDisplayModel { Id=1,Name ="Senad",LastName="Topalovic",
+                    Contracts = new List<ContractDisplayModel>
+                    {
+                        new ContractDisplayModel{ Id=1,ProjectId=1,Name="Ugovor1",Investor="Senad" },
+                        new ContractDisplayModel{ Id=2,ProjectId=1,Name="Ugovor2",Investor="Senad" },
+                        new ContractDisplayModel{ Id=3,ProjectId=1,Name="Ugovor3",Investor="Senad" },
+                        new ContractDisplayModel{ Id=3,ProjectId=1,Name="Ugovor3",Investor="Senad" },
+                        new ContractDisplayModel{ Id=3,ProjectId=1,Name="Ugovor3",Investor="Senad" },
+                        new ContractDisplayModel{ Id=3,ProjectId=1,Name="Ugovor3",Investor="Senad" }
+                    }
+                },
+                new ProjectDisplayModel { Id=2,Name ="Emil",LastName ="Topalovic",
+                    Contracts=new List<ContractDisplayModel>
+                    {
+                        new ContractDisplayModel{ Id=1,ProjectId=2,Name="Ugovor1",Investor="Emil"},
+                        new ContractDisplayModel{ Id=2,ProjectId=2,Name="Ugovor2",Investor="Emil"},
+                        new ContractDisplayModel{ Id=3,ProjectId=2,Name="Ugovor3",Investor="Emil"}
+                    }
+                },
+                new ProjectDisplayModel { Id=3,Name ="Semir",LastName="Suljevic",
+                    Contracts= new List<ContractDisplayModel>
+                    {
+                        new ContractDisplayModel{ Id=1,ProjectId=3,Name="Ugovor1",Investor="Semir"},
+                        new ContractDisplayModel{ Id=2,ProjectId=3,Name="Ugovor2",Investor="Semir"},
+                        new ContractDisplayModel{ Id=3,ProjectId=3,Name="Ugovor3",Investor="Semir"}
+                    }
+                }
             };
 
+        }
+
+        protected override void OnViewLoaded(object view)
+        {
+            base.OnViewLoaded(view);
+            SelectedProjectItem = Projects[0];
         }
 
 

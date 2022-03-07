@@ -6,5 +6,6 @@
     [ContractedValue] MONEY NULL, 
     [Status] NVARCHAR(50) NULL, 
     [FundSource] NVARCHAR(50) NULL, 
-    [Notes] NVARCHAR(800) NULL
+    [Notes] NVARCHAR(800) NULL, 
+    CONSTRAINT [FK_Project_ToUser] FOREIGN KEY ([UserId]) REFERENCES [User]([Id])
 )

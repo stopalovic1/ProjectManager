@@ -7,5 +7,7 @@
     [DateOfBegining] DATETIME2 NULL, 
     [DateOfEnding] DATETIME2 NULL, 
     [ContractNumber] NVARCHAR(50) NULL, 
-    [Investor] NVARCHAR(50) NULL
+    [Investor] NVARCHAR(50) NULL, 
+    CONSTRAINT [FK_Contract_ToProject] FOREIGN KEY ([ProjectId]) REFERENCES [Project]([Id]), 
+    CONSTRAINT [FK_Contract_ToContractType] FOREIGN KEY ([ContractTypeId]) REFERENCES [ContractType]([Id])
 )
