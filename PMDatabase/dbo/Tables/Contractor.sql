@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Contractor]
 (
-	[Id] INT NOT NULL PRIMARY KEY, 
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1,1), 
     [Firm] NVARCHAR(50) NULL, 
     [Name] NVARCHAR(50) NULL, 
     [LastName] NVARCHAR(50) NULL, 

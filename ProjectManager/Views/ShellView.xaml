@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectManagerUI.Views"
         mc:Ignorable="d"
+        SizeToContent="WidthAndHeight"
         Title="ShellVIew" Height="768" Width="1024" ResizeMode="NoResize">
     <Grid>
         <ContentControl x:Name="ActiveItem" Margin="20 5 20 20"/>

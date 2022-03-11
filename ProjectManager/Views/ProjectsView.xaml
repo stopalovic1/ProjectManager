@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:viewmodels="clr-namespace:ProjectManagerUI.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:ProjectsViewModel}"
              mc:Ignorable="d" 
+             Width="1030" Height="768"
              d:DesignHeight="768" Background="White" d:DesignWidth="1024">
 
     <Grid>
@@ -17,7 +18,8 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="191*" />
+            <RowDefinition Height="48*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -29,49 +31,49 @@
         </Grid.ColumnDefinitions>
 
         <!--Prvi red-->
-        <Border Grid.Row="0" Grid.ColumnSpan="6" Height="30" Background="Aquamarine" Margin="5 5 5 5" ></Border>
-        <Button Content="Javna nabava" Grid.Row="0" Grid.Column="1" Margin="10 10 10 10"/>
-        <Button Content="Ugovori" Grid.Row="0" Grid.Column="2" Margin="10 10 10 10"/>
-        <Button Content="Izvođači" Grid.Row="0" Grid.Column="3" Margin="10 10 10 10"/>
-        <Button Content="Uposlenici" Grid.Row="0" Grid.Column="4" Margin="10 10 10 10"/>
+        <Border Grid.Row="0" Grid.ColumnSpan="6" Height="30" Background="Aquamarine" Margin="5,5,5,5" ></Border>
+        <Button Content="Javna nabava" Grid.Row="0" Grid.Column="1" Margin="10,10,10,10"/>
+        <Button Content="Ugovori" Grid.Row="0" Grid.Column="2" Margin="10,10,10,10"/>
+        <Button Content="Izvođači" Grid.Row="0" Grid.Column="3" Margin="10,10,10,10"/>
+        <Button Content="Uposlenici" Grid.Row="0" Grid.Column="4" Margin="10,10,10,10"/>
         <!--Drugi red-->
-        <Border Grid.Row="1" Grid.ColumnSpan="6" Height="30" Background="Aquamarine" Margin="5 5 5 5"/>
-        <Button Content="Novi projekt" Grid.Row="1" Grid.Column="1" Margin="10 10 10 10"/>
-        <Button Content="Dovršeni projekti" Grid.Row="1" Grid.Column="2" Margin="10 10 10 10"/>
-        <Button Content="Ugovori bez situacija" Grid.Row="1" Grid.Column="3" Margin="10 10 10 10"/>
+        <Border Grid.Row="1" Grid.ColumnSpan="6" Height="30" Background="Aquamarine" Margin="5,5,5,5"/>
+        <Button Content="Novi projekt" Grid.Row="1" Grid.Column="1" Margin="10,10,10,10" x:Name="AddProjectButton"/>
+        <Button Content="Dovršeni projekti" Grid.Row="1" Grid.Column="2" Margin="10,10,10,10"/>
+        <Button Content="Ugovori bez situacija" Grid.Row="1" Grid.Column="3" Margin="10,10,10,10"/>
 
 
-        <DockPanel Grid.Row="2" Grid.ColumnSpan="3" Margin="5 5 5 5">
+        <DockPanel Grid.Row="2" Grid.ColumnSpan="3" Margin="5,5,5,5">
             <Label Content="Projekt:"></Label>
             <TextBox  Width="240" />
         </DockPanel>
 
         <!--Treci red-->
-        <DockPanel Grid.Row="3" Grid.ColumnSpan="2" Margin="5 5 5 5">
+        <DockPanel Grid.Row="3" Grid.ColumnSpan="2" Margin="5,5,5,5">
             <Label Content="Vlasnik:"></Label>
-            <TextBox Width="140" HorizontalAlignment="Right" Text="{Binding Path = SelectedProjectItem.Name}"></TextBox>
+            <TextBox Width="140" HorizontalAlignment="Right" Text="{Binding Path = SelectedProjectItem.Owner}"></TextBox>
         </DockPanel>
         <!--Cetvrti red-->
-        <DockPanel Grid.Row="4" Grid.ColumnSpan="2" Margin="5 5 5 5">
+        <DockPanel Grid.Row="4" Grid.ColumnSpan="2" Margin="5,5,5,5">
             <Label Content="Izvori sredstava:"></Label>
             <TextBox Width="140" HorizontalAlignment="Right" ></TextBox>
         </DockPanel>
         <!--Peti red-->
-        <DockPanel Grid.Row="5" Grid.ColumnSpan="2"  Margin="5 5 5 5">
+        <DockPanel Grid.Row="5" Grid.ColumnSpan="2"  Margin="5,5,5,5">
             <Label Content="Stanje:"></Label>
             <TextBox Width="140" HorizontalAlignment="Right"></TextBox>
         </DockPanel>
         <!--Sesti red-->
-        <GroupBox Header="Ugovorene vrijednosti:" Grid.Row="6" Grid.ColumnSpan="2" Height="120" Margin="5 5 5 5">
+        <GroupBox Header="Ugovorene vrijednosti:" Grid.Row="6" Grid.ColumnSpan="2" Height="120" Margin="5,5,5,5">
             <TextBlock Background="#fffccc"></TextBlock>
         </GroupBox>
 
         <!--Sedmi red-->
-        <GroupBox Header="Biljeske:" Grid.Row="7" Grid.ColumnSpan="2" Height="120" Margin="5 5 5 5">
-            <TextBlock></TextBlock>
+        <GroupBox Header="Biljeske:" Grid.Row="7" Grid.ColumnSpan="2" Height="120" Margin="5,5,5,5">
+            <TextBlock Text="{Binding Path=SelectedProjectItem.Notes}"/>
         </GroupBox>
 
-        <GroupBox Header="Ugovori:" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="4" Grid.RowSpan="4" Margin="5 5 5 5">
+        <GroupBox Header="Ugovori:" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="4" Grid.RowSpan="4" Margin="5,5,5,5">
             <DataGrid ItemsSource="{Binding SelectedProjectItem.Contracts, IsAsync=True}" SelectedItem="{Binding SelectedContractItem}"
                       MinColumnWidth="120" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column"
                       EnableRowVirtualization = "True" SelectionMode="Single" CanUserResizeRows="False" VerticalScrollBarVisibility="Auto"
@@ -147,19 +149,23 @@
         </GroupBox>
 
 
-        <Border Grid.Row="8" Grid.ColumnSpan="6" Height="35" Background="Aquamarine" Margin="5 5 5 5">
+        <Border Grid.Row="8" Grid.ColumnSpan="6" Height="35" Background="Aquamarine" Margin="5,5,5,5">
             <TextBlock Text="Projekti" VerticalAlignment="center" HorizontalAlignment="Center" FontSize="28"/>
         </Border>
 
         <DataGrid x:Name="Projects" AutoGenerateColumns="False" HeadersVisibility="Column"
                   IsReadOnly="True" SelectionMode="Single" Grid.Row="9" 
                   Grid.ColumnSpan="6" MinColumnWidth="120" SelectedItem="{Binding SelectedProjectItem}"
-                  EnableRowVirtualization="True" EnableColumnVirtualization = "true" MinRowHeight="40" Margin="5 5 5 5">
+                  EnableRowVirtualization="True" EnableColumnVirtualization = "true" MinRowHeight="40" Margin="5 5 5 5" Grid.RowSpan="2">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"/>
+                <DataGridTextColumn Header="Vlasnik" Binding="{Binding Owner}"/>
+                <DataGridTextColumn Header="Naziv projekta" Binding="{Binding ProjectName}"/>
+                <DataGridTextColumn Header="Ugovorena vrijednost" Binding="{Binding ContractedValue}"/>
+                <DataGridTextColumn Header="Bruto vrijednost" Binding="{Binding GrossValue}"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}"/>
+                <DataGridTextColumn Header="Izvor finansiranja" Binding="{Binding FundSource}"/>
             </DataGrid.Columns>
 
             <DataGrid.CellStyle>

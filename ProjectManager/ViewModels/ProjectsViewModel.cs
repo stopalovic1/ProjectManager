@@ -3,6 +3,12 @@ using ProjectManagerUI.Models;
 using System.ComponentModel;
 using System.Windows.Controls;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Threading;
+using ProjectManagerUI.EventModels;
+using ProjectManager.Library.Internal.DataAccess;
+using ProjectManager.Library.Tables;
+
 namespace ProjectManagerUI.ViewModels
 {
     public class ProjectsViewModel : Screen
@@ -64,6 +70,8 @@ namespace ProjectManagerUI.ViewModels
 
 
         private ContractDisplayModel _selectedContractItem;
+        private readonly IEventAggregator _eventAggregator;
+        private readonly ISqlDataAccess _sql;
 
         public ContractDisplayModel SelectedContractItem
         {
@@ -77,48 +85,46 @@ namespace ProjectManagerUI.ViewModels
 
 
 
-        public ProjectsViewModel()
+        public ProjectsViewModel(IEventAggregator eventAggregator, ISqlDataAccess sql)
         {
-            Projects = new BindingList<ProjectDisplayModel>
-            {
-                new ProjectDisplayModel { Id=1,Name ="Senad",LastName="Topalovic",
-                    Contracts = new List<ContractDisplayModel>
-                    {
-                        new ContractDisplayModel{ Id=1,ProjectId=1,Name="Ugovor1",Investor="Senad" },
-                        new ContractDisplayModel{ Id=2,ProjectId=1,Name="Ugovor2",Investor="Senad" },
-                        new ContractDisplayModel{ Id=3,ProjectId=1,Name="Ugovor3",Investor="Senad" },
-                        new ContractDisplayModel{ Id=3,ProjectId=1,Name="Ugovor3",Investor="Senad" },
-                        new ContractDisplayModel{ Id=3,ProjectId=1,Name="Ugovor3",Investor="Senad" },
-                        new ContractDisplayModel{ Id=3,ProjectId=1,Name="Ugovor3",Investor="Senad" }
-                    }
-                },
-                new ProjectDisplayModel { Id=2,Name ="Emil",LastName ="Topalovic",
-                    Contracts=new List<ContractDisplayModel>
-                    {
-                        new ContractDisplayModel{ Id=1,ProjectId=2,Name="Ugovor1",Investor="Emil"},
-                        new ContractDisplayModel{ Id=2,ProjectId=2,Name="Ugovor2",Investor="Emil"},
-                        new ContractDisplayModel{ Id=3,ProjectId=2,Name="Ugovor3",Investor="Emil"}
-                    }
-                },
-                new ProjectDisplayModel { Id=3,Name ="Semir",LastName="Suljevic",
-                    Contracts= new List<ContractDisplayModel>
-                    {
-                        new ContractDisplayModel{ Id=1,ProjectId=3,Name="Ugovor1",Investor="Semir"},
-                        new ContractDisplayModel{ Id=2,ProjectId=3,Name="Ugovor2",Investor="Semir"},
-                        new ContractDisplayModel{ Id=3,ProjectId=3,Name="Ugovor3",Investor="Semir"}
-                    }
-                }
-            };
-
+            _eventAggregator = eventAggregator;
+            _sql = sql;
         }
 
-        protected override void OnViewLoaded(object view)
+        protected override async void OnViewLoaded(object view)
         {
             base.OnViewLoaded(view);
-            SelectedProjectItem = Projects[0];
+
+            var products = await _sql.GetAllAsync<Project>();
+            var productDisplayModel = new List<ProjectDisplayModel>();
+            foreach (var product in products)
+            {
+                var pdm = new ProjectDisplayModel
+                {
+                    Id = product.Id,
+                    ContractedValue = product.ContractedValue,
+                    Status = product.Status,
+                    Contracts = new List<ContractDisplayModel>(),
+                    FundSource = product.FundSource,
+                    GrossValue = product.GrossValue,
+                    Notes = product.Notes,
+                    Owner = product.Owner,
+                    ProjectName = product.ProjectName,
+                    UserId = product.UserId
+                };
+                productDisplayModel.Add(pdm);
+            }
+
+            Projects = new BindingList<ProjectDisplayModel>(productDisplayModel);
+            if (Projects.Count != 0)
+            {
+                SelectedProjectItem = Projects[0];
+            }
         }
-
-
+        public async Task AddProjectButton()
+        {
+            await _eventAggregator.PublishOnUIThreadAsync(new AddProjectEvent(), new CancellationToken());
+        }
 
 
     }

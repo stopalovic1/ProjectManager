@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:ProjectManagerUI.Views"
              mc:Ignorable="d" 
              d:Background="White"
+             Width="800" Height="550"
              d:DesignHeight="550" d:DesignWidth="800" FontSize="24">
 
     <Grid>
@@ -30,13 +31,13 @@
         <TextBlock Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="6" Text="AAAAA" TextAlignment="Center" Background="CadetBlue" Margin="5 5 5 5"/>
 
         <TextBlock Grid.Row="2" Grid.RowSpan="2" Grid.ColumnSpan="6" Text="Vrijeme" TextAlignment="Center" Background="CadetBlue" Margin="5 5 5 5"/>
-        
+
         <TextBlock Grid.Row="5" Grid.Column="0"  Grid.ColumnSpan="6" Text="Glavni izbornik:" TextAlignment="Center" Background="CadetBlue" Margin="5 5 5 5"/>
 
         <Border Grid.Row= "6"  Grid.RowSpan= "3" Grid.Column="0" Grid.ColumnSpan="3" Margin="5 5 5 5" Background="CadetBlue">
             <TextBlock  Text="Slika" MinWidth="200" Background="CadetBlue" TextAlignment="Center" VerticalAlignment="Center"/>
         </Border>
-        
+
         <TextBlock Grid.Column="3" MinWidth="120"></TextBlock>
 
         <StackPanel Orientation="Vertical" Grid.Column="4" Grid.Row="6" Margin="5,5,5,5" MinWidth="250">

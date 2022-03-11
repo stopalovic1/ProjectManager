@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ProjectManagerUI.ViewModels
 {
-    public class ShellViewModel : Conductor<object>, IHandle<ProjectEvent>
+    public class ShellViewModel : Conductor<object>, IHandle<ProjectEvent>, IHandle<AddProjectEvent>
     {
         private readonly IEventAggregator _eventAggregator;
 
@@ -25,6 +25,11 @@ namespace ProjectManagerUI.ViewModels
         public async Task HandleAsync(ProjectEvent message, CancellationToken cancellationToken)
         {
             await ActivateItemAsync(IoC.Get<ProjectsViewModel>(), cancellationToken);
+        }
+
+        public async Task HandleAsync(AddProjectEvent message, CancellationToken cancellationToken)
+        {
+            await ActivateItemAsync(IoC.Get<AddProjectViewModel>(), cancellationToken);
         }
     }
 }

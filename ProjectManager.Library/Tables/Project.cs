@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectManagerUI.Models
+namespace ProjectManager.Library.Tables
 {
-    public class ProjectDisplayModel : INotifyPropertyChanged
+    [Table("Project")]
+    public class Project
     {
         public int Id { get; set; }
         public int UserId { get; set; }
@@ -18,11 +19,6 @@ namespace ProjectManagerUI.Models
         public string Status { get; set; }
         public string FundSource { get; set; }
         public string Notes { get; set; }
-        public List<ContractDisplayModel> Contracts { get; set; }
-        public event PropertyChangedEventHandler? PropertyChanged;
-        public void CallPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+
     }
 }

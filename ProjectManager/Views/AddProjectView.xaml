@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="ProjectManagerUI.Views.AddProjectView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProjectManagerUI.Views"
+             mc:Ignorable="d" 
+             Width="800" Height="400"
+             d:DesignHeight="400" d:DesignWidth="800" Background="White">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <DockPanel Grid.Column="0" Grid.Row="0" Margin="5 5 5 5" Grid.ColumnSpan="2">
+            <Label Content="Naziv projekta:"></Label>
+            <TextBox x:Name="ProjectName" Width="320" Height="50" HorizontalAlignment="Right" TextWrapping="Wrap"/>
+        </DockPanel>
+
+        <DockPanel Grid.Column="0" Grid.Row="1" Margin="5 5 5 5"  Grid.ColumnSpan="2" >
+            <Label Content="Ugovorena vrijednost: "></Label>
+            <TextBox x:Name="ContractedValue"  Width="100"/>
+            <Label Content="Bruto vrijednost:" Margin="25 0 0 0"/>
+            <TextBox x:Name="GrossValue"  Width="100" HorizontalAlignment="Right"/>
+        </DockPanel>
+
+        <Border Grid.Row="2" Grid.Column="0" Height="30" Grid.ColumnSpan="5"/>
+
+        <DockPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="5 5 5 5" Width="290" HorizontalAlignment="Left">
+            <Label Content="Vlasnik:"/>
+            <TextBox x:Name="Owner" Width="190" HorizontalAlignment="Right" Margin="50 0 0 0"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="5 5 5 5" Width="290" HorizontalAlignment="Left">
+            <Label Content="Izvor sredstava:"/>
+            <ComboBox Width="190" HorizontalAlignment="Right"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="5 5 5 5" Width="290" HorizontalAlignment="Left">
+            <Label Content="Stanje:"/>
+            <ComboBox Width="190" HorizontalAlignment="Right"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Margin="5 5 5 5" Width="350" HorizontalAlignment="Left">
+            <Label Content="Biljeske:"/>
+            <TextBox x:Name="Notes" Width="290" Height="100" HorizontalAlignment="Right" TextWrapping="Wrap"/>
+        </DockPanel>
+
+        <StackPanel Grid.Column="2" Grid.Row="8" Margin="5 5 5 5">
+            <Button x:Name="SaveProject" Width="180" Height="50" Content="Sacuvaj" FontSize="22" Margin="5 5 5 5"/>
+            <Button x:Name="BackToMenu" Width="180" Height="50" Content="Nazad na menu" FontSize="22" Margin="5 5 5 5"/>
+        </StackPanel>
+       
+    </Grid>
+</UserControl>
