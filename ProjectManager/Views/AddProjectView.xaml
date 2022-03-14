@@ -50,12 +50,12 @@
 
         <DockPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="5 5 5 5" Width="290" HorizontalAlignment="Left">
             <Label Content="Izvor sredstava:"/>
-            <ComboBox Width="190" HorizontalAlignment="Right"/>
+            <ComboBox x:Name="FundSourceComboBox" Width="190" SelectedIndex="0" HorizontalAlignment="Right" SelectedItem="{Binding FundSourceItem}"/>
         </DockPanel>
 
         <DockPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="5 5 5 5" Width="290" HorizontalAlignment="Left">
             <Label Content="Stanje:"/>
-            <ComboBox Width="190" HorizontalAlignment="Right"/>
+            <ComboBox x:Name="StatusComboBox" Width="190" HorizontalAlignment="Right" SelectedIndex="0" SelectedItem="{Binding StatusItem}"/>
         </DockPanel>
 
         <DockPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Margin="5 5 5 5" Width="350" HorizontalAlignment="Left">
@@ -67,6 +67,5 @@
             <Button x:Name="SaveProject" Width="180" Height="50" Content="Sacuvaj" FontSize="22" Margin="5 5 5 5"/>
             <Button x:Name="BackToMenu" Width="180" Height="50" Content="Nazad na menu" FontSize="22" Margin="5 5 5 5"/>
         </StackPanel>
-       
     </Grid>
 </UserControl>

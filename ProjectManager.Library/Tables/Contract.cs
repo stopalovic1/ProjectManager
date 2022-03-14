@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectManagerUI.Models
+namespace ProjectManager.Library.Tables
 {
-    public class ContractDisplayModel
+    [Table("Contract")]
+    public class Contract
     {
         public int Id { get; set; }
         public int ProjectId { get; set; }

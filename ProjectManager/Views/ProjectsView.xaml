@@ -41,11 +41,11 @@
         <Button Content="Novi projekt" Grid.Row="1" Grid.Column="1" Margin="10,10,10,10" x:Name="AddProjectButton"/>
         <Button Content="Dovršeni projekti" Grid.Row="1" Grid.Column="2" Margin="10,10,10,10"/>
         <Button Content="Ugovori bez situacija" Grid.Row="1" Grid.Column="3" Margin="10,10,10,10"/>
-
+        <Button Content="Novi ugovor" Grid.Row="1" Grid.Column="4" Margin="10 10 10 10" x:Name="AddContractButton"/>
 
         <DockPanel Grid.Row="2" Grid.ColumnSpan="3" Margin="5,5,5,5">
             <Label Content="Projekt:"></Label>
-            <TextBox  Width="240" />
+            <TextBox Width="240" Text="{Binding Path=SelectedProjectItem.ProjectName}" IsReadOnly="True" />
         </DockPanel>
 
         <!--Treci red-->
@@ -56,12 +56,12 @@
         <!--Cetvrti red-->
         <DockPanel Grid.Row="4" Grid.ColumnSpan="2" Margin="5,5,5,5">
             <Label Content="Izvori sredstava:"></Label>
-            <TextBox Width="140" HorizontalAlignment="Right" ></TextBox>
+            <TextBox Width="140" HorizontalAlignment="Right" Text="{Binding Path=SelectedProjectItem.FundSource}" />
         </DockPanel>
         <!--Peti red-->
         <DockPanel Grid.Row="5" Grid.ColumnSpan="2"  Margin="5,5,5,5">
             <Label Content="Stanje:"></Label>
-            <TextBox Width="140" HorizontalAlignment="Right"></TextBox>
+            <TextBox Width="140" HorizontalAlignment="Right" Text="{Binding SelectedProjectItem.Status}"/>
         </DockPanel>
         <!--Sesti red-->
         <GroupBox Header="Ugovorene vrijednosti:" Grid.Row="6" Grid.ColumnSpan="2" Height="120" Margin="5,5,5,5">
@@ -82,7 +82,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
                     <DataGridTextColumn Header="ProjectId" Binding="{Binding ProjectId}"/>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding ContractName}"/>
                     <DataGridTextColumn Header="Investor" Binding="{Binding Investor}"/>
                 </DataGrid.Columns>
 
@@ -155,7 +155,7 @@
 
         <DataGrid x:Name="Projects" AutoGenerateColumns="False" HeadersVisibility="Column"
                   IsReadOnly="True" SelectionMode="Single" Grid.Row="9" 
-                  Grid.ColumnSpan="6" MinColumnWidth="120" SelectedItem="{Binding SelectedProjectItem}"
+                  Grid.ColumnSpan="6" MinColumnWidth="135" SelectedItem="{Binding SelectedProjectItem}"
                   EnableRowVirtualization="True" EnableColumnVirtualization = "true" MinRowHeight="40" Margin="5 5 5 5" Grid.RowSpan="2">
 
             <DataGrid.Columns>

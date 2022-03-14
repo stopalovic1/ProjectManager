@@ -8,6 +8,11 @@ using System.Threading;
 using ProjectManagerUI.EventModels;
 using ProjectManager.Library.Internal.DataAccess;
 using ProjectManager.Library.Tables;
+using System.Data;
+using System.Data.SqlClient;
+using Dapper;
+using System.Linq;
+using System.Configuration;
 
 namespace ProjectManagerUI.ViewModels
 {
@@ -67,8 +72,6 @@ namespace ProjectManagerUI.ViewModels
             }
         }
 
-
-
         private ContractDisplayModel _selectedContractItem;
         private readonly IEventAggregator _eventAggregator;
         private readonly ISqlDataAccess _sql;
@@ -83,8 +86,6 @@ namespace ProjectManagerUI.ViewModels
             }
         }
 
-
-
         public ProjectsViewModel(IEventAggregator eventAggregator, ISqlDataAccess sql)
         {
             _eventAggregator = eventAggregator;
@@ -95,35 +96,43 @@ namespace ProjectManagerUI.ViewModels
         {
             base.OnViewLoaded(view);
 
-            var products = await _sql.GetAllAsync<Project>();
-            var productDisplayModel = new List<ProjectDisplayModel>();
-            foreach (var product in products)
-            {
-                var pdm = new ProjectDisplayModel
-                {
-                    Id = product.Id,
-                    ContractedValue = product.ContractedValue,
-                    Status = product.Status,
-                    Contracts = new List<ContractDisplayModel>(),
-                    FundSource = product.FundSource,
-                    GrossValue = product.GrossValue,
-                    Notes = product.Notes,
-                    Owner = product.Owner,
-                    ProjectName = product.ProjectName,
-                    UserId = product.UserId
-                };
-                productDisplayModel.Add(pdm);
-            }
+            var conn = ConfigurationManager.ConnectionStrings["ProjectManagerDB"].ConnectionString;
 
-            Projects = new BindingList<ProjectDisplayModel>(productDisplayModel);
-            if (Projects.Count != 0)
+            using (IDbConnection connection = new SqlConnection(conn))
             {
-                SelectedProjectItem = Projects[0];
+
+                string sql = @"select * from dbo.Project p left join dbo.Contract c on p.Id=c.ProjectId;";
+                var dic = new Dictionary<int, ProjectDisplayModel>();
+                var projects = (await connection.QueryAsync<ProjectDisplayModel, ContractDisplayModel, ProjectDisplayModel>(sql, (project, contract) =>
+                {
+                    ProjectDisplayModel model;
+                    if (!dic.TryGetValue(project.Id, out model))
+                    {
+                        model = project;
+                        model.Contracts = new List<ContractDisplayModel>();
+                        dic.Add(model.Id, model);
+                    }
+                    if (contract != null)
+                        model.Contracts.Add(contract);
+
+                    return model;
+                })).Distinct().ToList();
+
+                Projects = new BindingList<ProjectDisplayModel>(projects);
+                if (Projects.Count != 0)
+                {
+                    SelectedProjectItem = Projects[0];
+                }
             }
         }
         public async Task AddProjectButton()
         {
             await _eventAggregator.PublishOnUIThreadAsync(new AddProjectEvent(), new CancellationToken());
+        }
+
+        public async Task AddContractButton()
+        {
+            await _eventAggregator.PublishOnUIThreadAsync(new AddContractEvent(), new CancellationToken());
         }
 
 
