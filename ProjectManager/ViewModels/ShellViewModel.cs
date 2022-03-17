@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ProjectManagerUI.ViewModels
 {
-    public class ShellViewModel : Conductor<object>, IHandle<ProjectEvent>, IHandle<AddProjectEvent>, IHandle<AddContractEvent>
+    public class ShellViewModel : Conductor<object>, IHandle<ProjectEvent>, IHandle<AddProjectEvent>, IHandle<AddContractEvent>, IHandle<ContractorEvent>, IHandle<AddContractorEvent>
     {
         private readonly IEventAggregator _eventAggregator;
 
@@ -35,6 +35,16 @@ namespace ProjectManagerUI.ViewModels
         public async Task HandleAsync(AddContractEvent message, CancellationToken cancellationToken)
         {
             await ActivateItemAsync(IoC.Get<AddContractViewModel>(), cancellationToken);
+        }
+
+        public async Task HandleAsync(ContractorEvent message, CancellationToken cancellationToken)
+        {
+            await ActivateItemAsync(IoC.Get<ContractorsViewModel>(), cancellationToken);
+        }
+
+        public async Task HandleAsync(AddContractorEvent message, CancellationToken cancellationToken)
+        {
+            await ActivateItemAsync(IoC.Get<AddContractorViewModel>(), cancellationToken);
         }
     }
 }

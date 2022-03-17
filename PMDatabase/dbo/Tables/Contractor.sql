@@ -1,17 +1,18 @@
 ﻿CREATE TABLE [dbo].[Contractor]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1,1), 
-    [Firm] NVARCHAR(50) NULL, 
-    [Name] NVARCHAR(50) NULL, 
-    [LastName] NVARCHAR(50) NULL, 
+    [FirmName] NVARCHAR(50) NULL, 
+    [OwnerName] NVARCHAR(50) NULL, 
+    [OwnerLastName] NVARCHAR(50) NULL, 
     [JMBG] NVARCHAR(50) NULL, 
-    [OIB] NCHAR(10) NULL, 
-    [Email] NCHAR(10) NULL, 
-    [PersonalPhone] NCHAR(10) NULL, 
-    [BusinessPhone] NCHAR(10) NULL, 
-    [Adress] NCHAR(10) NULL, 
-    [City] NCHAR(10) NULL, 
-    [PostalCode] NCHAR(10) NULL, 
-    [WebSite] NCHAR(10) NULL, 
-    [Notes] NCHAR(10) NULL
+    [OIB] NVARCHAR(50) NULL, 
+    [Email] NVARCHAR(50) NULL, 
+    [Fax] NVARCHAR(50) NULL,
+    [Address] NVARCHAR(50) NULL,
+    [PersonalPhone] NVARCHAR(50) NULL, 
+    [BusinessPhone] NVARCHAR(50) NULL, 
+    [City] NVARCHAR(50) NULL, 
+    [PostalCode] NVARCHAR(50) NULL, 
+    [WebSite] NVARCHAR(50) NULL, 
+    [Notes] NVARCHAR(50) NULL
 )

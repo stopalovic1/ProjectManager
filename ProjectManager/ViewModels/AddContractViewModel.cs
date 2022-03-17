@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Dynamic;
 using System.Windows;
+using System.Linq;
 
 namespace ProjectManagerUI.ViewModels
 {
@@ -91,7 +92,7 @@ namespace ProjectManagerUI.ViewModels
             }
         }
 
-        private DateTime _dateOfBeginning;
+        private DateTime _dateOfBeginning = DateTime.Now;
 
         public DateTime DateOfBeginning
         {
@@ -116,7 +117,7 @@ namespace ProjectManagerUI.ViewModels
         }
 
 
-        private DateTime _dateOfEnding;
+        private DateTime _dateOfEnding = DateTime.Now;
 
         public DateTime DateOfEnding
         {
@@ -153,16 +154,44 @@ namespace ProjectManagerUI.ViewModels
             }
         }
 
+
+        private BindingList<ContractTypeDisplayModel> _contractTypeComboBox;
+
+        public BindingList<ContractTypeDisplayModel> ContractTypeComboBox
+        {
+            get { return _contractTypeComboBox; }
+            set
+            {
+                _contractTypeComboBox = value;
+                NotifyOfPropertyChange(() => ContractTypeComboBox);
+            }
+        }
+
+
+
+        private ContractTypeDisplayModel _selectedContractTypeItem;
+
+        public ContractTypeDisplayModel SelectedContractTypeItem
+        {
+            get { return _selectedContractTypeItem; }
+            set
+            {
+                _selectedContractTypeItem = value;
+                NotifyOfPropertyChange(() => SelectedContractTypeItem);
+            }
+        }
+
+
         protected override async void OnViewLoaded(object view)
         {
             base.OnViewLoaded(view);
 
             var projects = await _sql.GetAllAsync<Project>();
+            var contractTypes = await _sql.GetAllAsync<ContractType>();
 
-            var productDisplayModel = new List<ProjectDisplayModel>();
-            foreach (var project in projects)
+            var projectDisplayModels = projects.Select(project =>
             {
-                var pdm = new ProjectDisplayModel
+                return new ProjectDisplayModel
                 {
                     Id = project.Id,
                     ContractedValue = project.ContractedValue,
@@ -175,12 +204,24 @@ namespace ProjectManagerUI.ViewModels
                     ProjectName = project.ProjectName,
                     UserId = project.UserId
                 };
-                productDisplayModel.Add(pdm);
-            }
+            }).ToList();
 
-            ProjectsComboBox = new BindingList<ProjectDisplayModel>(productDisplayModel);
+            var contractTypeDisplayModels = contractTypes.Select(x =>
+            {
+                return new ContractTypeDisplayModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Notes = x.Notes
+                };
+            }).ToList();
 
+            ProjectsComboBox = new BindingList<ProjectDisplayModel>(projectDisplayModels);
+            ContractTypeComboBox = new BindingList<ContractTypeDisplayModel>(contractTypeDisplayModels);
         }
+
+
+
 
 
         public async Task SaveContract()
@@ -197,7 +238,7 @@ namespace ProjectManagerUI.ViewModels
                 FinancingMethod = FinancingMethod,
                 Investor = Investor,
                 Notes = Notes,
-                ContractTypeId = null
+                ContractTypeId = SelectedContractTypeItem?.Id
             };
 
             try
@@ -216,6 +257,9 @@ namespace ProjectManagerUI.ViewModels
             }
 
         }
+
+
+
         public async Task BackToMenu()
         {
             await _eventAggregator.PublishOnUIThreadAsync(new ProjectEvent(), new CancellationToken());

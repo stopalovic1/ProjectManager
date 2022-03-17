@@ -1,0 +1,111 @@
+﻿<UserControl x:Class="ProjectManagerUI.Views.AddContractorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProjectManagerUI.Views"
+             mc:Ignorable="d" 
+             Background="White"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <DockPanel Grid.Row="0" Grid.Column="0" Margin="5 5 5 5">
+            <Label Content="Firma:"/>
+            <TextBox Width="250" HorizontalAlignment="Right" x:Name="FirmName"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="1" Grid.Column="0" Margin="5 5 5 5">
+            <Label Content="Prezime:"/>
+            <TextBox Width="250" HorizontalAlignment="Right" x:Name="OwnerLastName"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="2" Grid.Column="0" Margin="5 5 5 5">
+            <Label Content="Ime:"/>
+            <TextBox Width="250" HorizontalAlignment="Right" x:Name="OwnerFirstName"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="3" Grid.Column="0" Margin="5 5 5 5">
+            <Label Content="Poslovna titula:" />
+            <TextBox Width="250" HorizontalAlignment="Right" x:Name="Title"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="4" Grid.Column="0" Margin="5 5 5 5">
+            <Label Content="Maticni broj:"/>
+            <TextBox Width="250" HorizontalAlignment="Right" x:Name="JMBG"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="5" Grid.Column="0" Margin="5 5 5 5">
+            <Label Content="OIB:"/>
+            <TextBox Width="250" HorizontalAlignment="Right" x:Name="OIB"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="6" Grid.Column="0" Margin="5 5 5 5">
+            <Label Content="Sluzbeni telefon:"/>
+            <TextBox Width="250" HorizontalAlignment="Right" x:Name="BusinessPhone"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="0" Grid.Column="1" Margin="5 5 5 5">
+            <Label Content="Kucni telefon:"/>
+            <TextBox Width="250" HorizontalAlignment="Right" x:Name="PersonalPhone"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="1" Grid.Column="1" Margin="5 5 5 5">
+            <Label Content="Broj faksa:"/>
+            <TextBox Width="250" HorizontalAlignment="Right" x:Name="Fax"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="2" Grid.Column="1" Margin="5 5 5 5">
+            <Label Content="Adresa:"/>
+            <TextBox Width="250" HorizontalAlignment="Right" x:Name="Address"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="3" Grid.Column="1" Margin="5 5 5 5">
+            <Label Content="Grad:"/>
+            <TextBox Width="250" HorizontalAlignment="Right" x:Name="City"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="4" Grid.Column="1" Margin="5 5 5 5">
+            <Label Content="Postanski broj:"/>
+            <TextBox Width="250" HorizontalAlignment="Right" x:Name="PostalCode"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="5" Grid.Column="1" Margin="5 5 5 5">
+            <Label Content="Email adresa:"/>
+            <TextBox Width="250" HorizontalAlignment="Right" x:Name="Email"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="6" Grid.Column="1" Margin="5 5 5 5">
+            <Label Content="Web stranica:"/>
+            <TextBox Width="250" HorizontalAlignment="Right" x:Name="WebSite"/>
+        </DockPanel>
+
+        <DockPanel  Grid.Row="10" Grid.Column="0" Margin="5 5 5 5">
+            <Label Content="Biljeske:"/>
+            <TextBox x:Name="Notes" Grid.Row="10" Grid.Column="0" Width="250" HorizontalAlignment="Right" Margin="0 0 0 50" TextWrapping="Wrap"/>
+        </DockPanel>
+        
+
+
+        <StackPanel Grid.Row="10" Grid.Column="1" >
+            <Button x:Name="SaveContractor" Width="180" Height="50" Content="Sacuvaj" FontSize="22" Margin="5 5 5 5"/>
+            <Button x:Name="BackToMenu" Width="180" Height="50" Content="Nazad na menu" FontSize="22" Margin="5 5 5 5"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

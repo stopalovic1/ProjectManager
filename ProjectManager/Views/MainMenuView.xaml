@@ -45,7 +45,7 @@
             <Button Content="Ugovori" Margin="5,5,5,5"/>
             <Button Content="Javne nabave" Margin="5,5,5,5"/>
             <Button Content="Sifrarnici" Margin="5,5,5,5"/>
-            <Button Content="Projekti" Margin="5,5,5,5"/>
+            <Button Content="Izvoditelji" x:Name="ContractorButton" Margin="5,5,5,5"/>
             <Button Content="Projekti" Margin="5,5,5,5"/>
         </StackPanel>
     </Grid>

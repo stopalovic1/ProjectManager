@@ -27,5 +27,9 @@ namespace ProjectManagerUI.ViewModels
             await _eventAggregator.PublishOnUIThreadAsync(new ProjectEvent(), new CancellationToken());
         }
 
+        public async Task ContractorButton()
+        {
+            await _eventAggregator.PublishOnUIThreadAsync(new ContractorEvent(), new CancellationToken());
+        }
     }
 }
