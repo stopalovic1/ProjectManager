@@ -29,7 +29,7 @@ namespace ProjectManagerUI.ViewModels
 
         public async Task ContractorButton()
         {
-            await _eventAggregator.PublishOnUIThreadAsync(new ContractorEvent(), new CancellationToken());
+            await _eventAggregator.PublishOnUIThreadAsync(new ContractorEvent { ParentScreen = "MainMenuView" }, new CancellationToken());
         }
     }
 }

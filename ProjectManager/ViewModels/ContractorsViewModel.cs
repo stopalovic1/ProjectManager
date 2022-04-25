@@ -24,7 +24,10 @@ namespace ProjectManagerUI.ViewModels
             await _eventAggregator.PublishOnUIThreadAsync(new AddContractorEvent(), new CancellationToken());
         }
 
-
+        public async Task BackToContractorsMenu()
+        {
+            await _eventAggregator.PublishOnUIThreadAsync(new MainMenuEvent(), new CancellationToken());
+        }
 
 
     }

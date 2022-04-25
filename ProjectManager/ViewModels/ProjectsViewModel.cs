@@ -135,6 +135,9 @@ namespace ProjectManagerUI.ViewModels
             await _eventAggregator.PublishOnUIThreadAsync(new AddContractEvent(), new CancellationToken());
         }
 
-
+        public async Task ContractorsButton()
+        {
+            await _eventAggregator.PublishOnUIThreadAsync(new ContractorEvent { ParentScreen = "ProjectsView" }, new CancellationToken());
+        }
     }
 }

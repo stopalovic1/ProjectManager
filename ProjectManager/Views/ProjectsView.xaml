@@ -34,7 +34,7 @@
         <Border Grid.Row="0" Grid.ColumnSpan="6" Height="30" Background="Aquamarine" Margin="5,5,5,5" ></Border>
         <Button Content="Javna nabava" Grid.Row="0" Grid.Column="1" Margin="10,10,10,10"/>
         <Button Content="Ugovori" Grid.Row="0" Grid.Column="2" Margin="10,10,10,10"/>
-        <Button Content="Izvođači" Grid.Row="0" Grid.Column="3" Margin="10,10,10,10"/>
+        <Button x:Name="ContractorsButton" Content="Izvođači" Grid.Row="0" Grid.Column="3" Margin="10,10,10,10"/>
         <Button Content="Uposlenici" Grid.Row="0" Grid.Column="4" Margin="10,10,10,10"/>
         <!--Drugi red-->
         <Border Grid.Row="1" Grid.ColumnSpan="6" Height="30" Background="Aquamarine" Margin="5,5,5,5"/>

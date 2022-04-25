@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectManagerUI.EventModels
 {
-    public class ContractorEvent
+    public class MainMenuEvent
     {
-        public string ParentScreen { get; set; }
     }
 }

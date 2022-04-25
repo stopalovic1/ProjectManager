@@ -10,10 +10,12 @@ using System.Threading.Tasks;
 
 namespace ProjectManagerUI.ViewModels
 {
-    public class ShellViewModel : Conductor<object>, IHandle<ProjectEvent>, IHandle<AddProjectEvent>, IHandle<AddContractEvent>, IHandle<ContractorEvent>, IHandle<AddContractorEvent>
+    public class ShellViewModel : Conductor<object>,
+        IHandle<ProjectEvent>, IHandle<AddProjectEvent>, IHandle<AddContractEvent>,
+        IHandle<ContractorEvent>, IHandle<AddContractorEvent>, IHandle<MainMenuEvent>
     {
         private readonly IEventAggregator _eventAggregator;
-
+        private static string ParentScreenFromContractor = "";
         public ShellViewModel(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
@@ -39,12 +41,25 @@ namespace ProjectManagerUI.ViewModels
 
         public async Task HandleAsync(ContractorEvent message, CancellationToken cancellationToken)
         {
+            ParentScreenFromContractor = message.ParentScreen;
             await ActivateItemAsync(IoC.Get<ContractorsViewModel>(), cancellationToken);
         }
 
         public async Task HandleAsync(AddContractorEvent message, CancellationToken cancellationToken)
         {
             await ActivateItemAsync(IoC.Get<AddContractorViewModel>(), cancellationToken);
+        }
+
+        public async Task HandleAsync(MainMenuEvent message, CancellationToken cancellationToken)
+        {
+            if (ParentScreenFromContractor == "MainMenuView")
+            {
+                await ActivateItemAsync(IoC.Get<MainMenuViewModel>(), cancellationToken);
+            }
+            else if (ParentScreenFromContractor == "ProjectsView")
+            {
+                await ActivateItemAsync(IoC.Get<ProjectsViewModel>(), cancellationToken);
+            }
         }
     }
 }
